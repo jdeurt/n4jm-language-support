@@ -1,5 +1,8 @@
 {
     "name": "n4jm-language-support",
+    "repository": {
+        "url": "https://github.com/jdeurt/n4jm-language-support"
+    },
     "displayName": "n4jm-language-support",
     "description": "",
     "version": "0.0.1",
