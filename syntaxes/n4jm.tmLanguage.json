@@ -1,0 +1,162 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "n4jm",
+    "foldingStartMarker": "\\{\\s*$",
+    "foldingStopMarker": "^\\s*\\}",
+    "patterns": [
+        {
+            "include": "#comments"
+        },
+        {
+            "name": "meta.enum.n4jm",
+            "begin": "^(enum)\\s+([a-zA-Z][a-zA-Z0-9_]*)\\s*\\{",
+            "beginCaptures": {
+                "1": {
+                    "name": "storage.modifier.n4jm"
+                },
+                "2": {
+                    "name": "entity.name.type.n4jm"
+                }
+            },
+            "end": "\\}",
+            "patterns": [
+                {
+                    "name": "meta.enum.member.n4jm",
+                    "begin": "^",
+                    "end": "$",
+                    "patterns": [
+                        {
+                            "name": "string.quoted.double",
+                            "match": "^\\s*\"[^\"]*\"\\s*$"
+                        },
+                        {
+                            "name": "string.unquoted.n4jm",
+                            "match": "^\\s*[a-zA-Z][a-zA-Z0-9_]*\\s*$"
+                        },
+                        {
+                            "name": "constant.numeric.n4jm",
+                            "match": "^\\s*[0-9]+(\\.[0-9]+)?\\s*$"
+                        },
+                        {
+                            "name": "invalid.illegal.n4jm",
+                            "match": "[^\\s]+\\s+[^\\s]+"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "meta.label.n4jm",
+            "patterns": [
+                {
+                    "name": "meta.label.header.n4jm",
+                    "match": "^(abstract\\s+|)([a-zA-Z][a-zA-Z0-9_]*)(\\s*:\\s*([a-zA-Z][a-zA-Z0-9_]*))?",
+                    "captures": {
+                        "1": {
+                            "name": "storage.modifier.n4jm"
+                        },
+                        "2": {
+                            "name": "entity.name.class.n4jm"
+                        },
+                        "4": {
+                            "name": "entity.other.inherited-class.n4jm"
+                        }
+                    }
+                },
+                {
+                    "name": "meta.label.body.n4jm",
+                    "begin": "\\{",
+                    "end": "\\}",
+                    "patterns": [
+                        {
+                            "include": "#arrows"
+                        },
+                        {
+                            "include": "#tags_with_args"
+                        },
+                        {
+                            "include": "#tags"
+                        },
+                        {
+                            "name": "meta.label.body.property.n4jm",
+                            "match": "([a-zA-Z][a-zA-Z0-9_]*)\\s*:\\s*([a-zA-Z][a-zA-Z0-9_]*)",
+                            "captures": {
+                                "2": {
+                                    "name": "storage.type.n4jm"
+                                }
+                            }
+                        },
+                        {
+                            "name": "meta.label.body.relationship.n4jm",
+                            "begin": "[a-zA-Z][a-zA-Z0-9_]*\\s*(->|<-|--|<>)\\s*\\[",
+                            "end": "\\]",
+                            "beginCaptures": {
+                                "1": {
+                                    "name": "keyword.operator.n4jm"
+                                },
+                                "2": {
+                                    "name": "storage.type.n4jm"
+                                }
+                            },
+                            "patterns": [
+                                {
+                                    "name": "storage.type.n4jm",
+                                    "match": "[a-zA-Z][a-zA-Z0-9_]*"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "repository": {
+        "comments": {
+            "name": "comment.line.double-slash.n4jm",
+            "begin": "//",
+            "end": "$"
+        },
+        "arrows": {
+            "name": "keyword.operator.n4jm",
+            "match": "->|<-|--|<>"
+        },
+        "quoted_string_data": {
+            "name": "string.quoted.double",
+            "match": "\"[^\"]*\""
+        },
+        "string_data": {
+            "name": "string.unquoted.n4jm",
+            "match": "[a-zA-Z][a-zA-Z0-9_]*"
+        },
+        "num_data": {
+            "name": "constant.numeric.n4jm",
+            "match": "[0-9]+(\\.[0-9]+)?"
+        },
+        "tags_with_args": {
+            "name": "meta.tag.n4jm",
+            "begin": "(@[a-zA-Z][a-zA-Z0-9_]*)\\(",
+            "beginCaptures": {
+                "1": {
+                    "name": "entity.name.tag.n4jm"
+                }
+            },
+            "end": "\\)",
+            "patterns": [
+                {
+                    "include": "#quoted_string_data"
+                },
+                {
+                    "include": "#string_data"
+                },
+                {
+                    "include": "#num_data"
+                }
+            ]
+        },
+        "tags": {
+            "name": "entity.name.tag.n4jm",
+            "match": "@[a-zA-Z][a-zA-Z0-9_]*"
+        }
+    },
+    "scopeName": "source.n4jm"
+}
